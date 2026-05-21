@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# New Jersey Cleanouts — Marketing Site
 
-## Getting Started
+Next.js 16 (App Router) marketing + lead-capture site for **New Jersey Cleanouts** (NJ Cleanouts and Property Services).
 
-First, run the development server:
+## Stack
+- Next.js 16 App Router + React 19
+- Tailwind CSS v4 (`@theme inline`)
+- shadcn-style components (built manually, no CLI)
+- Lucide icons, Radix Accordion
+- Resend (server action) for the quote form
+- next-sitemap for sitemap/robots
 
+## Quick start
 ```bash
+npm install
+cp .env.example .env.local   # add RESEND_API_KEY if you have one
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment
+| Var | Purpose |
+|---|---|
+| `RESEND_API_KEY` | Resend transactional key. Optional in dev — the form falls back to `/tmp/njc-quotes.log`. |
+| `QUOTE_TO_EMAIL` | Inbox quotes are delivered to. Defaults to `Scott@NewJerseyCleanouts.com`. |
+| `QUOTE_FROM_EMAIL` | Verified `from:` address in Resend. Defaults to `onboarding@resend.dev`. |
+| `SITE_URL` | Used by next-sitemap. Defaults to `https://www.newjerseycleanouts.com`. |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Content data
+- `src/content/services.ts` — all service pages (cleanouts, junk removal, demolition, dumpster)
+- `src/content/locations.ts` — all city/town pages
+- `src/content/counties.ts` — all county pages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To add a new town, drop an entry in `locations.ts` and reference its slug in the right county's `citySlugs` array.
 
-## Learn More
+## Routes
+- `/`, `/services`, `/services/[slug]`
+- `/locations`, `/locations/[slug]`
+- `/counties`, `/counties/[slug]`
+- `/about`, `/why-choose-us`, `/pricing`, `/items-we-take`, `/gallery`, `/reviews`, `/faq`, `/contact`, `/get-a-quote`
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Form embed (future option)
+If a CRM-managed form (GHL/HubSpot/etc.) is preferred later, replace `<QuoteForm />` in pages with an embed component and remove the Resend server action.

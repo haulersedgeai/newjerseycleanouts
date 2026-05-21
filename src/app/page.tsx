@@ -1,65 +1,117 @@
-import Image from "next/image";
+import { Hero } from "@/components/sections/Hero";
+import { ServicesGrid } from "@/components/sections/ServicesGrid";
+import { WhyChoose } from "@/components/sections/WhyChoose";
+import { HowItWorks } from "@/components/sections/HowItWorks";
+import { TrustBar } from "@/components/sections/TrustBar";
+import { LocationsByRegion } from "@/components/sections/LocationsGrid";
+import { FAQ } from "@/components/sections/FAQ";
+import { CTABand } from "@/components/sections/CTABand";
+import { Container } from "@/components/ui/container";
+import { COUNTIES } from "@/content/counties";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-export default function Home() {
+const HOME_FAQ = [
+  {
+    q: "How fast can you come out?",
+    a: "Most jobs in North Jersey we can run same-day or next-day. Statewide we work on a 24- to 72-hour window depending on crew schedules. If you're on a tight closing or move-out deadline, tell us — we'll move things around.",
+  },
+  {
+    q: "What does a cleanout cost?",
+    a: "Pricing is volume-based — what we charge is what fits in the truck. A single couch is one price, a full basement is another, a whole house is another. On-site or video estimates are free and there's no hourly clock running.",
+  },
+  {
+    q: "What do you do with the stuff?",
+    a: "Anything usable goes to NJ donation partners (clothing, working furniture, dishware). Metal gets recycled, electronics go to a certified e-waste partner, and only what's left lands at the transfer station.",
+  },
+  {
+    q: "Can you handle a hoarder or estate situation?",
+    a: "Yes — discreetly and respectfully. We move at the family's pace, look for keepsakes and documents before anything leaves the property, and we never make anyone feel judged. Unmarked trucks available.",
+  },
+  {
+    q: "Are you insured? Can you send a COI?",
+    a: "Yes. General liability and workers' comp on file. We'll send a Certificate of Insurance to your building, HOA, or property manager before we arrive.",
+  },
+];
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <>
+      <Hero />
+
+      <section className="section-gradient">
+        <Container className="py-14 sm:py-20">
+          <TrustBar />
+        </Container>
+      </section>
+
+      <section>
+        <Container className="py-14 sm:py-20">
+          <ServicesGrid />
+        </Container>
+      </section>
+
+      <section className="section-gradient">
+        <Container className="py-14 sm:py-20">
+          <WhyChoose />
+        </Container>
+      </section>
+
+      <section>
+        <Container className="py-14 sm:py-20">
+          <HowItWorks />
+        </Container>
+      </section>
+
+      <section className="section-gradient">
+        <Container className="py-14 sm:py-20">
+          <div className="grid items-end justify-between gap-4 sm:flex">
+            <div>
+              <h2 className="font-display text-3xl font-extrabold text-ink-900 sm:text-4xl">
+                Coverage Across the Garden State
+              </h2>
+              <p className="mt-3 max-w-2xl text-ink-600">
+                From Bergen to Cape May — pick your county or jump straight to your town.
+              </p>
+            </div>
+            <Link
+              href="/counties"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:text-brand-700"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+              All counties <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {COUNTIES.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/counties/${c.slug}`}
+                className="group rounded-xl border border-ink-200 bg-white p-4 transition-all hover:border-brand-400 hover:shadow-sm"
+              >
+                <div className="font-display text-lg font-bold text-ink-900 group-hover:text-brand-700">
+                  {c.name} County
+                </div>
+                <div className="mt-1 text-xs text-ink-500">{c.seat ? `Seat: ${c.seat}` : c.fullName}</div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-12 space-y-10">
+            <LocationsByRegion region="north-jersey" />
+            <LocationsByRegion region="central-jersey" />
+            <LocationsByRegion region="jersey-shore" />
+            <LocationsByRegion region="south-jersey" />
+          </div>
+        </Container>
+      </section>
+
+      <section>
+        <Container className="py-14 sm:py-20">
+          <FAQ items={HOME_FAQ} />
+        </Container>
+      </section>
+
+      <CTABand />
+    </>
   );
 }
